@@ -19,6 +19,7 @@ routes.delete('/incidents/:id', IncidentController.remove);
 // rota de login
 routes.post('/auth', SessionController.store);
 
+// routes.delete('/ongs/:id', OngController.delete); 
 
 module.exports = routes;
 

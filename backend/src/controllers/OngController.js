@@ -14,16 +14,27 @@ module.exports = {
     const { name, email, whatsapp, city, uf } = req.body;
     const id = crypto.randomBytes(4).toString('HEX');
 
-    await connection('ongs').insert({
-      id,
-      name,
-      email,
-      whatsapp,
-      city,
-      uf
-    });
+      const verifyEmail = await connection('ongs').where('email', email).first();
+      
+      if(verifyEmail) return res.status(400).json({error: 'user exists'});
 
-    return res.json({id});
-  }
+      await connection('ongs').insert({
+          id,
+          name,
+          email,
+          whatsapp,
+          city,
+          uf
+        });
 
+      return res.json({id});
+  },
+
+  // teste
+  // async delete(req, res) {
+  //   const { id} = req.params;
+  //   await connection('ongs').where('id', id).delete();
+
+  //   res.send();
+  // }
 }

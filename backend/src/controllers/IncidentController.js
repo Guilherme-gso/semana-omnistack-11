@@ -6,6 +6,8 @@ module.exports = {
     const { title, description, value } = req.body;
     const ong_id = req.headers.authorization;
 
+    if(!title || !description || !value) return res.status(400).json({error: "error"});
+    
     const [id] = await connection('incidents').insert({
       ong_id,
       title,
